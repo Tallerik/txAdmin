@@ -22,7 +22,13 @@
 
 <div class="text-center" style="margin-bottom: 5px">
     <h3>Server Log</h3>
-    <span><span class="badge badge-danger">NEW</span> You can now log custom commands like <code>/car</code>. Read the <a href="https://github.com/tabarra/txAdmin/blob/master/docs/extra_logging.md" target="_blank">docs</a> for more information.</span>
+<!--    <span><span class="badge badge-danger">NEW</span> You can now log custom commands like <code>/car</code>. Read the <a href="https://github.com/tabarra/txAdmin/blob/master/docs/extra_logging.md" target="_blank">docs</a> for more information.</span>-->
+    <form>
+        <select id="sortdrop"class="btn btn-outline-dark mx-auto">
+
+        </select>
+    </form>
+
 </div>
 <div class="card border-primary">
     <div class="card-body">
@@ -35,6 +41,16 @@
 
 
 <script>
+
+    let sorters = {
+        "Leave": "disconnected",
+        "join": "connected"
+    }
+    let lines = [
+
+    ]
+
+
     $(document).ready(function () {
         scrollToBottom();
         setupHovers();
@@ -53,6 +69,8 @@
                 if(typeof data.offset !== 'undefined') currOffset = data.offset;
                 if(typeof data.log !== 'undefined' && data.log !== false && data.log.length){
                     $("#console").append(data.log);
+                    data.log.split("\n").forEach(value => lines.push(value))
+                    console.log(lines)
                     scrollToBottom();
                     setupHovers();
                 }
