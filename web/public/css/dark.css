@@ -1,0 +1,68 @@
+body {
+    color: #a3a3a3!important;
+}
+.tab-content {
+    color: #dedede!important;
+}
+.app-header, .tab-content, .card, .form-control, .modal-content {
+    background-color: #303030!important;
+}
+.form-control {
+    border-color: rgba(228, 231, 234, 0.4)!important;
+}
+.main {
+    background-color: #212121;
+}
+.app-footer, .card-header, .modal-header {
+    background-color: #424242!important;
+}
+.app-footer, .app-header {
+    border-color: #71757a!important;
+}
+.aside-menu {
+    border: none!important;
+}
+.btn-outline-dark:hover {
+    color: #23282c;
+    background-color: #fff;
+    border-color: #fff;
+}
+.btn:hover {
+    color: #fff;
+    background-color: #2f353a;
+    border-color: #2f353a;
+    text-decoration-color: currentcolor;
+}
+.card, .card-header {
+    border-color: #71757a !important;
+}
+.dropdown-menu {
+    background-color: #212121!important;
+ }
+.dropdown-header {
+    background-color: #303030!important;
+}
+.dropdown-item {
+    color: #a3a3a3!important;
+}
+li .active {
+    background-color: #303030 !important;
+    border: none!important;
+}
+.table {
+    color: #a3a3a3!important;
+}
+.alert-secondary {
+    background-color: #303030!important;
+    border-color: #71757a!important;
+}
+#console {
+    color: #a3a3a3!important;
+}
+.card-footer, .modal-footer {
+    background-color: #424242!important;
+}
+.btn-outline-dark {
+    color: #a3a3a3;
+    border-color: #a3a3a3;
+}

@@ -9,16 +9,20 @@
   <meta name="description" content="txAdmin - remotely manage&monitor your GTA5 FiveM Server">
   <meta name="author" content="André Tabarra">
   <title>{{headerTitle}}</title>
+
+  <!-- Exchange CSS (Must be first)-->
+  <link rel="stylesheet" href="css/light.css" type="text/css">
+
   <!-- Icons-->
   <link href="css/coreui-icons.min.css" rel="stylesheet">
   <link href="css/simple-line-icons.css" rel="stylesheet">
   <!-- Main styles for this application-->
   <!-- <link href="https://coreui.io/demo/2.0/dark/css/style.css" rel="stylesheet"> -->
-  <link href="css/coreui.css" rel="stylesheet">
+  <link type="text/css" href="css/coreui.css" rel="stylesheet">
   <link href="css/pace.min.css" rel="stylesheet">
   <link href="css/animate.css" rel="stylesheet">
   <link rel="shortcut icon" type="image/png" href="img/favicon_default.png" id="favicon" />
-
+  <script type="application/javascript" src="js/darkmode.js"></script>
   <link rel="stylesheet" href="css/custom.css">
 </head>
 
@@ -32,6 +36,7 @@
       <img class="navbar-brand-minimized" src="img/tx.png" width="30" height="30" alt="txAdmin Logo">
     </a>
     <ul class="nav navbar-nav ml-auto">
+      <button id="toggleLightBtn" class="btn btn-outline-info" onclick="toggleLightMode()"> <i class="cid-moon"></i> Go to darkmode</button>
       <li class="nav-item px-3 dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <span class="d-sm-down-none">{{adminUsername}} </span>

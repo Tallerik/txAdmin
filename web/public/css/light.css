@@ -1,0 +1,37 @@
+body {
+    color: #23282c;
+}
+.app-header, .tab-content, .card, .form-control {
+    background-color: #fff!important;
+}
+.form-control {
+    border-color: rgb(228, 231, 234) !important;
+}
+.main {
+    background-color: #e4e5e6;
+}
+.app-footer, .card-header {
+    background-color: #f0f3f5!important;
+
+}
+.app-footer {
+    border-color: #c8ced3!important;
+}
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #2f353a;
+    border-color: #2f353a;
+}
+.btn:hover {
+    color: #23282c;
+    text-decoration-color: currentcolor;
+}
+.card, .card-header {
+    border-color: #c8ced3!important;
+}
+.dropdown-menu {
+    background-color: #fff!important;
+}
+.dropdown-header {
+    background-color: #e4e7ea!important;
+}
