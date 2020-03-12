@@ -1,5 +1,8 @@
-var mode = "white"
-
+var mode = "white";
+var stor = window.localStorage;
+window.addEventListener('load', function () {
+    loadState()
+})
 function changeCSS(cssFile, cssLinkIndex) {
 
     var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
@@ -15,12 +18,28 @@ function changeCSS(cssFile, cssLinkIndex) {
 function toggleLightMode() {
     if(mode === "white") {
         document.getElementById("toggleLightBtn").innerHTML = '<i class="cid-sun"></i> Go to lightmode';
-        changeCSS("css/dark.css", 0)
-        mode = "dark"
-
+        changeCSS("css/dark.css", 0);
+        mode = "dark";
+        saveState()
     } else {
         document.getElementById("toggleLightBtn").innerHTML = '<i class="cid-moon"></i> Go to darkmode';
-        changeCSS("css/light.css", 0)
-        mode = "white"
+        changeCSS("css/light.css", 0);
+        mode = "white";
+        saveState()
+    }
+}
+
+function saveState() {
+    if(typeof(stor) === "undefined") {return;} // not supported
+    stor.setItem("darkmode", mode);
+}
+
+function loadState() {
+    if(typeof(stor) === "undefined") {return;} // not supported
+    if(typeof(stor.getItem("darkmode")) === "undefined") {return;} // no data set
+    mode = stor.getItem("darkmode")
+    if( mode !== "white") {
+        document.getElementById("toggleLightBtn").innerHTML = '<i class="cid-sun"></i> Go to lightmode';
+        changeCSS("css/dark.css", 0);
     }
 }
