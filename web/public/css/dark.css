@@ -66,3 +66,14 @@ li .active {
     color: #a3a3a3!important;
     border-color: #a3a3a3!important;
 }
+.nav-link:hover {
+    border-color: gray!important;
+}
+.switch-slider {
+    background-color: #424242!important;
+    border: 1px solid gray!important;
+}
+.switch-success .switch-input:checked + .switch-slider {
+    background-color: #4dbd74!important;
+    border-color: #3a9d5d!important;
+}
