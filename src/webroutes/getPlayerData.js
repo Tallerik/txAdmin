@@ -29,8 +29,9 @@ module.exports = async function action(res, req) {
     let player = players.find(player => player.id === id);
     let disableDM = getPermDisable('commands.message');
     let disableKick = getPermDisable('commands.kick');
-    let idents = player.identifiers.map(x => xss(x)).join(', <br>\n');
-    idents["id"] = id
+    let identlist = player.identifiers;
+    identlist.push("ID:" + id);
+    let idents = identlist.map(x => xss(x)).join(', <br>\n');
     if(player){
         out = {
             name: xss(player.name),
