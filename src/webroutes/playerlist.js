@@ -24,7 +24,7 @@ module.exports = async function action(res, req) {
         "{{BODY}}" +
         "            </div>\n" +
         "        </div></div>";
-    let playerHtml = rowstart + card.replace("{{HEADER}}", "Hey").replace("{{BODY}}", players.toString) + rowend;
+    let playerHtml = rowstart + card.replace("{{HEADER}}", "Hey").replace("{{BODY}}", players.join()) + rowend;
 
     let renderData = {
         headerTitle: 'Playerlist',
