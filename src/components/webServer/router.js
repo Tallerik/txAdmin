@@ -170,11 +170,20 @@ module.exports = router = (config) =>{
             handleRouteError(res, req, 'resources', err);
         });
     });
+
+    // Extensions
     router.get('/addExtension', requestAuth('web'), async (req, res) => {
         await webRoutes.addExtension(res, req).catch((err) => {
             handleRouteError(res, req, 'addExtension', err);
         });
     });
+    router.get('/extension/playerList', requestAuth('web'), async (req, res) => {
+        await webRoutes.extension_playerlist(res, req).catch((err) => {
+            handleRouteError(res, req, 'extension', err);
+        });
+    });
+
+
 
     //Return router
     return router;

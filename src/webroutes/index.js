@@ -1,6 +1,7 @@
 exports.actionLog = require('./actionLog.js');
 exports.downFXServerLog = require('./downFXServerLog.js');
 exports.addExtension = require('./addExtension.js');
+exports.extension_playerlist = require('./playerlist.js');
 exports.dashboard = require('./dashboard.js');
 exports.getPlayerData = require('./getPlayerData.js');
 exports.resources = require('./resources.js');
