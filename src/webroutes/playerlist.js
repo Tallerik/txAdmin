@@ -24,8 +24,21 @@ module.exports = async function action(res, req) {
         "{{BODY}}" +
         "            </div>\n" +
         "        </div></div>";
-    let playerHtml = rowstart + card.replace("{{HEADER}}", "Hey").replace("{{BODY}}", players.join()) + rowend;
 
+    let playerHtml;
+    let i = 0;
+    playerHtml = rowstart;
+    players.forEach(player => {
+        playerHtml = playerHtml + card.replace("{{HEADER}}", player.name).replace("{{BODY}}", getCardContent(player));
+        i++;
+        if (i == 2) {
+            playerHtml = playerHtml + rowend;
+            i = 0;
+        }
+    });
+    if(i != 0) {
+        playerHtml = playerHtml + rowend;
+    }
     let renderData = {
         headerTitle: 'Playerlist',
         players: playerHtml
@@ -34,3 +47,43 @@ module.exports = async function action(res, req) {
     let out = await webUtils.renderMasterView('playerlist', req.session, renderData);
     return res.send(out);
 };
+
+
+function getCardContent(p) {
+    let out = "";
+    let breakhtml = "</br>";
+    let boldin = "<b>";
+    let boldout = "</b>";
+    let discordTag = ""
+    if(hasDiscord(p.identifiers)) {
+        let dcuserpromise = globals.discordBot.client.users.fetch(p.identifiers.discord.replace("discord:", ""));
+        let dcuser = null;
+        let dcpic = null;
+        dcuserpromise.then(user => {
+            dcuser = user;
+        })
+        if(dcuser != null) {
+            dcpic = "https://cdn.discordapp.com/avatars/" + p.identifiers.discord.replace("discord:", "") + "/" + dcuser.avatar + ".png"
+
+            discordTag = "<div style='width: 99%; margin-left: auto; margin-right: auto;' class='p-1 rounded'>" +
+                "<div class='row'><div class='col-2'><img class='rounded-circle m-1' src=" + dcpic + "></div>" +
+                "<div class='col-8'><b>" + dcuser.tag + "</b><br><small class='text-muted'>" + dcuser.presence.status + "</small></div>"
+
+        }
+
+    }
+    out = discordTag
+    p.identifiers.forEach(ident => {
+        let service = ident.split(":")[0];
+        service = service.replace(/^./, service[0].toUpperCase()); // First letter uppercase
+        out = out + boldin + service + ": " + boldout + ident
+    })
+}
+
+function hasDiscord(idents) {
+    idents.forEach(ident => {
+        if(ident.startsWith("discord:"))
+            return true
+    })
+    return false;
+}
