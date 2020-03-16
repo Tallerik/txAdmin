@@ -35,3 +35,8 @@ body {
 .dropdown-header {
     background-color: #e4e7ea!important;
 }
+.menu-entry-fakebtn, .menu-entry-fakebtn:hover, .menu-entry-fakebtn:active, .menu-entry-fakebtn:focus, .menu-entry-fakebtn:visited, .menu-entry-fakebtn:focus-within {
+    border: none!important;
+    min-width: 100%!important;
+    text-align: left!important;
+}

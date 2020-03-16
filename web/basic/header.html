@@ -36,7 +36,7 @@
       <img class="navbar-brand-minimized" src="img/tx.png" width="30" height="30" alt="txAdmin Logo">
     </a>
     <ul class="nav navbar-nav ml-auto">
-      <button id="toggleLightBtn" class="btn btn-outline-info" onclick="toggleLightMode()"> <i class="cid-moon"></i> Go to darkmode</button>
+<!--      <button id="toggleLightBtn" class="btn btn-outline-info" onclick="toggleLightMode()"> <i class="cid-moon"></i> Go to darkmode</button>  There`s a new one yea-->
       <li class="nav-item px-3 dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <span class="d-sm-down-none">{{adminUsername}} </span>
@@ -121,6 +121,8 @@
           <li class="nav-item">
             <a class="nav-link" href="/addExtension">
               <i class="nav-icon icon-grid"></i> Add Extension</a>
+            <button class="nav-link menu-entry-fakebtn" id="toggleLightBtn" onclick="toggleLightMode()">
+              <i class="nav-icon icon-bulb"></i> Toggle Light mode</button>
           </li>
 
           <li class="nav-divider"></li>

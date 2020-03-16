@@ -9,8 +9,8 @@
 - [x] Route Error Verbosity
 - [x] Detect failed server launch
 - [x] Move the start.bat file to the root dir
-- [ ] Try the dark theme scss
-- [ ] Make toggle button
+- [x] Try the dark theme scss
+- [x] Make toggle button
 
 Major stuff:
 - [ ] Check compiling libraries like pkg and nexe.
@@ -37,7 +37,7 @@ Minor stuff:
 - [x] When sending a DM as admin, add the name of the admin
 - [x] Add localized uptime to the /status command and review the usage of the dateformat lib
 - [x] Add to the resources page an option to see/hide the default cfx resources
-- [ ] Dark Theme!
+- [x] Dark Theme!
 
 x = done
 - = being worked on
