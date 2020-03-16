@@ -42,7 +42,7 @@ module.exports = async function action(res, req) {
     let renderData = {
         headerTitle: 'Playerlist',
         players: playerHtml
-    }
+    };
 
     let out = await webUtils.renderMasterView('playerlist', req.session, renderData);
     return res.send(out);
@@ -54,36 +54,38 @@ function getCardContent(p) {
     let breakhtml = "</br>";
     let boldin = "<b>";
     let boldout = "</b>";
-    let discordTag = ""
+    let discordTag = "";
     if(hasDiscord(p.identifiers)) {
         let dcuserpromise = globals.discordBot.client.users.fetch(p.identifiers.discord.replace("discord:", ""));
         let dcuser = null;
         let dcpic = null;
         dcuserpromise.then(user => {
             dcuser = user;
-        })
+        });
         if(dcuser != null) {
-            dcpic = "https://cdn.discordapp.com/avatars/" + p.identifiers.discord.replace("discord:", "") + "/" + dcuser.avatar + ".png"
+            dcpic = "https://cdn.discordapp.com/avatars/" + p.identifiers.discord.replace("discord:", "") + "/" + dcuser.avatar + ".png";
 
             discordTag = "<div style='width: 99%; margin-left: auto; margin-right: auto;' class='p-1 rounded'>" +
-                "<div class='row'><div class='col-2'><img class='rounded-circle m-1' src=" + dcpic + "></div>" +
+                "<div class='row'><div class='col-2'><img alt='Profile image' class='rounded-circle m-1' src=" + dcpic + "></div>" +
                 "<div class='col-8'><b>" + dcuser.tag + "</b><br><small class='text-muted'>" + dcuser.presence.status + "</small></div>"
 
         }
 
     }
-    out = discordTag
+    out = discordTag;
+    out = out + breakhtml;
     p.identifiers.forEach(ident => {
         let service = ident.split(":")[0];
         service = service.replace(/^./, service[0].toUpperCase()); // First letter uppercase
         out = out + boldin + service + ": " + boldout + ident
-    })
+    });
+    return out;
 }
 
 function hasDiscord(idents) {
     idents.forEach(ident => {
         if(ident.startsWith("discord:"))
             return true
-    })
+    });
     return false;
 }
