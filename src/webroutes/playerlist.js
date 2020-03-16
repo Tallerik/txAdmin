@@ -56,6 +56,7 @@ function getCardContent(p) {
     let boldout = "</b>";
     let discordTag = "";
     if(hasDiscord(p.identifiers)) {
+        console.log("Discord ident gefunden");
         let dcuserpromise = globals.discordBot.client.users.fetch(p.identifiers.discord.replace("discord:", ""));
         let dcuser = null;
         let dcpic = null;
@@ -63,6 +64,7 @@ function getCardContent(p) {
             dcuser = user;
         });
         if(dcuser != null) {
+            console.log("Discord user gefunden");
             dcpic = "https://cdn.discordapp.com/avatars/" + p.identifiers.discord.replace("discord:", "") + "/" + dcuser.avatar + ".png";
 
             discordTag = "<div style='width: 99%; margin-left: auto; margin-right: auto;' class='p-1 rounded'>" +
@@ -77,7 +79,7 @@ function getCardContent(p) {
     p.identifiers.forEach(ident => {
         let service = ident.split(":")[0];
         service = service.replace(/^./, service[0].toUpperCase()); // First letter uppercase
-        out = out + boldin + service + ": " + boldout + ident
+        out = out + boldin + service + ": " + boldout + ident + breakhtml;
     });
     return out;
 }
