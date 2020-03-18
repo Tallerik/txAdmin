@@ -39,7 +39,7 @@ body {
 .dropdown-menu {
     background-color: #212121!important;
     border-color: #71757a!important;
- }
+}
 .dropdown-header {
     background-color: #303030!important;
     border-color: #71757a!important;
@@ -88,8 +88,8 @@ li .active {
     min-width: 100%!important;
     text-align: left!important;
 }
-span:hover, *:hover > span {
-    color: lightgray!important;
+*:not(#console):not([role=presentation]) > span:hover, *:not(#console):not([role=presentation]):hover > span {
+    /*color: lightgray!important;*/
 }
 .nav-item .active {
     color: #a3a3a3!important;
