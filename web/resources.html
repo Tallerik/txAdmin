@@ -145,6 +145,11 @@
 
     //============================================== Refresh button
     function btnCommand(action, parameter) {
+        if (action == "stop_res" || action == "ensure_res") {
+            if(parameter == "pepe") {
+                return false;
+            }
+        }
         var notify = $.notify({ message: '<p class="text-center">Executing Command...</p>' }, {});
         $.ajax({
             type: "POST",
