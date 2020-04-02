@@ -24,6 +24,8 @@ module.exports = class Authenticator {
             "console.view",
             "console.write",
             "server.cfg.editor",
+            "ban.create",
+            "ban.list"
         ];
         this.refreshAdmins();
 
