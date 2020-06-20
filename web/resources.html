@@ -9,7 +9,7 @@
     <div class="col-md-7">
         <div class="card card-accent-primary">
             <div class="card-header float-left">
-                <span style="font-size: large">All Resources</span>
+                <span style="font-size: large">All Resources (<span id="counter"></span>)</span>
                 <button class="btn btn-sm btn-primary float-right" type="button" id="btnRefresh" {{disableActions}}>
                     <i class="icon-refresh"></i> Reload & Refresh
                 </button>
@@ -24,6 +24,16 @@
                         <input type="checkbox" id="defResCheckbox" class="switch-input">
                         <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                     </label>
+                </div>
+                <div class="row justify-content-md-center">
+                    <span class="form-text text-muted" style="margin-top: calc(0.3rem + 2px)">
+                        Anzeigen:&nbsp;&nbsp;
+                    </span>
+                    <select id="showonoff" class="form-control" style="width: 30%;">
+                        <option selected="selected" name="all">Alles</option>
+                        <option name="off">Deaktiviert</option>
+                        <option name="on">Aktiviert</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -228,4 +238,24 @@
     $(function () {
         hideDefaultResources();
     });
+
+
+
+    // Show on off resources
+    $("#showonoff").change(function () {
+        var selected = $(this).children("option:selected").val();
+        $( "div.callout" ).hide( "fast" );
+        if(selected == "Alles") {
+            $( "div.callout" ).show( "fast" );
+            $("#counter").text($( "div.callout" ).length);
+        } else if (selected == "Deaktiviert") {
+            $("div.callout-danger").show("fast");
+            $("#counter").text($( "div.callout-danger" ).length);
+        } else if (selected == "Aktiviert") {
+            $("div.callout-success").show("fast");
+            $("#counter").text($( "div.callout-success" ).length);
+        }
+    })
+
+    $("#counter").text($( "div.callout" ).length);
 </script>

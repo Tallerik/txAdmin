@@ -70,3 +70,6 @@ typings/
 
 # next.js build output
 .next
+run.sh
+playerlist_syntax.json
+.idea

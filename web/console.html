@@ -60,14 +60,41 @@
         </form>
     </div>
 </div>
+<div class="card bg-dark">
+    <div class="card-header align-content-center">FX-Log Report</div>
+    <div class="card-body">
 
+        <span class="text-success">Resources not found: (<span id="notfoundcount"></span>)</span><button class="btn btn-danger btn-report" data-toggle="collapse" data-target="#notfoundObj" aria-expanded="false" aria-controls="notfoundObj">Show list</button>
+        <div id="notfoundObj" class="collapse" aria-labelledby="notfoundHeading">
+            <div class="card-body text-danger"></div>
+        </div><br>
+        <span class="text-success">Errored on start: (<span id="errorcount"></span>)</span><button class="btn btn-danger btn-report" data-toggle="collapse" data-target="#errorObj" aria-expanded="false" aria-controls="errorObj">Show list</button>
+        <div id="errorObj" class="collapse" aria-labelledby="errorHeading">
+            <div class="card-body text-danger"></div>
+        </div><br>
+        <span class="text-success">ScriptError: (<span id="scriptcount"></span>)</span><button class="btn btn-danger btn-report" data-toggle="collapse" data-target="#scriptObj" aria-expanded="false" aria-controls="scriptObj">Show list</button>
+        <div id="scriptObj" class="collapse" aria-labelledby="scriptHeading">
+            <div class="card-body text-danger"></div>
+        </div><br>
+        <span class="text-success">Found Resources: <span id="resfoundcount"></span></span>
+    </div>
+</div>
 
 {{include("footer")/}}
+<style>
 
+    .btn-report {
+        margin-left: 10px;
+    }
+</style>
 
 <script src="js/ansi_up.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script>
+    let resfound = 0;
+    let notfound = 0;
+    let errord = 0;
+    let script = 0;
     //Socket
     $(function () {
         var socket = io();
@@ -83,6 +110,7 @@
             window.location = '/auth?logout';
         });
         socket.on('consoleData', function (msg) {
+            processReport(msg);
             $('#console').append(ansi_up.ansi_to_html(msg));
             if (autoScroll) $("#console").scrollTop($("#console")[0].scrollHeight);
         });
@@ -116,4 +144,50 @@
     $('#clearConsole').click(function () {
         $('#console').html('');
     });
+    function processReport(msgs) {
+        let lines = msgs.split("\n");
+        lines.forEach(processReportLine);
+    }
+    function processReportLine(msg, i) {
+        if(msg.includes("======== FXServer starting")) {
+            msg = msg.substring(msg.indexOf("======== FXServer starting"));
+            notfound = 0;
+            errord = 0;
+            script = 0;
+            resfound = 0;
+            $("#notfoundcount").text(notfound.toString());
+            $("#errorcount").text(errord.toString());
+            $("#scriptcount").text(script.toString());
+            $("#resfoundcount").text(resfound.toString());
+        }
+        if(msg.includes("Couldn't find resource ")) {//TODO: I dont know why. But it prints all entrys two times
+            msg = msg.substring(msg.indexOf("Couldn't find resource "));
+            msg = msg.replace("Couldn't find resource ", "");
+            msg = msg.substring(0, msg.indexOf("."));
+            console.log(msg);
+            $("#notfoundObj .card-body").html($("#notfoundObj .card-body").html().concat(msg + "<br>"));
+            notfound++;
+            $("#notfoundcount").text(notfound.toString());
+        } else if(msg.includes("Resource loading for ") && msg.includes("failed:")) {
+            msg = msg.replace("Resource loading for ", "").replace("failed:", "");
+            $("#errorObj .card-body").html($("#errorObj .card-body").html().concat(msg + "<br>"));
+            errord++;
+            $("#errorcount").text(errord.toString());
+        } else if(msg.includes("Error loading script") || msg.includes("Error parsing script")) {
+            $("#scriptObj .card-body").html($("#scriptObj .card-body").html().concat(msg.substring(msg.indexOf("Error")) + "<br>"));
+            script++;
+            $("#scriptcount").text(script.toString());
+        } else if(msg.includes("SCRIPT ERROR")) {
+            $("#scriptObj .card-body").html($("#scriptObj .card-body").html().concat(msg) + "<br>");
+            script++;
+            $("#scriptcount").text(script.toString());
+        } else if(msg.includes("Found new resource")) {
+            resfound++;
+            $("#resfoundcount").text(resfound.toString());
+        }
+    }
+    $("#notfoundcount").text(notfound.toString());
+    $("#errorcount").text(errord.toString());
+    $("#scriptcount").text(script.toString());
+    $("#resfoundcount").text(resfound.toString());
 </script>
