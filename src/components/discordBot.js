@@ -85,7 +85,7 @@ module.exports = class DiscordBot {
         //Setup event listeners
         this.client.on('ready', () => {
             logOk(`::Started and logged in as '${this.client.user.tag}'`, context);
-            //this.client.user.setActivity(globals.config.serverName, {type: 'WATCHING'});
+            this.client.user.setActivity(globals.config.serverName, {type: 'WATCHING'});
         });
         this.client.on('message', this.handleMessage.bind(this));
         this.client.on('error', (error) => {
