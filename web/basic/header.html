@@ -24,9 +24,10 @@
   <link rel="shortcut icon" type="image/png" href="img/favicon_default.png" id="favicon" />
   <script type="application/javascript" src="js/darkmode.js"></script>
   <link rel="stylesheet" href="css/custom.css">
+  <script type="application/javascript" src="js/profileimg.js"></script>
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show aside-menu-lg-show">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show aside-menu-lg-show" onload="loadImages()">
   <header class="app-header navbar">
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
       <span class="navbar-toggler-icon"></span>
@@ -41,14 +42,14 @@
       <li class="nav-item px-3 dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <span class="d-sm-down-none">{{adminUsername}} </span>
-          <img class="img-avatar" src="img/default_avatar.png">
+          <img class="img-avatar" id="profile_image1" src="img/default_avatar.png">
         </a>
         <div class="dropdown-menu dropdown-menu-right">
           <div class="dropdown-header text-center">
             <strong>Account</strong>
           </div>
           <div class="dropdown-item">
-            <img src="img/default_avatar.png" width="100%">
+            <img id="profile_image2" src="img/default_avatar.png" width="100%">
           </div>
           <a class="dropdown-item" href="" onclick="changeOwnPasswordModal(); return false;">
             <i class="icons icon-key"></i> Change password
@@ -117,10 +118,10 @@
 
           <li class="nav-divider"></li>
           <li class="nav-title mt-auto">Host System Usage</li>
-          <li>
-            <button class="nav-link menu-entry-fakebtn" id="toggleLightBtn" onclick="toggleLightMode()">
+          <li class="nav-item menu-entry-fakebtn" style="cursor: pointer;">
+            <a class="nav-link" onclick="toggleLightMode()">
               <i class="nav-icon icon-bulb"></i> Toggle Light mode
-            </button>
+            </a>
           </li>
           <li class="nav-item px-3 d-compact-none d-minimized-none">
             <div class="text-uppercase mb-1">
