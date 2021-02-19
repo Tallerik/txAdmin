@@ -12,7 +12,7 @@ Citizen.CreateThread(function()
             Citizen.Wait(1000)
         end
         if envAttempts >= 5 then
-            print("[txAdminClient] LUA awaiting for environment setup...")
+            print("[Dream-City] LUA awaiting for environment setup...")
         end
         envAttempts = envAttempts + 1
         apiPort = GetConvar("txAdmin-apiPort", "invalid")
@@ -57,14 +57,14 @@ function HeartBeat()
     PerformHttpRequest(url, function(httpCode, data, resultHeaders)
         local resp = tostring(data)
         if httpCode ~= 200 then
-            print("[txAdminClient] HeartBeat failed with code "..httpCode.." and message: "..resp)
+            print("[Dream-City] HeartBeat failed with code "..httpCode.." and message: "..resp)
         end
     end, 'POST', json.encode(exData), {['Content-Type']='application/json'})
 end
 
 -- Ping!
 function txaPing(source, args)
-    print("[txAdminClient] Pong!")
+    print("[Dream-City] Pong!")
     CancelEvent()
 end
 
@@ -74,7 +74,7 @@ function txaKickAll(source, args)
     if args[1] == nil then
         args[1] = 'no reason provided'
     end
-    print("[txAdminClient] Kicking all players with reason: "..args[1])
+    print("[Dream-City] Kicking all players with reason: "..args[1])
     for _, pid in pairs(GetPlayers()) do
         DropPlayer(pid, "Kicked for: " .. args[1])
     end
@@ -88,10 +88,10 @@ function txaKickID(source, args)
         if args[2] == nil then
             args[2] = 'no reason provided'
         end
-        print("[txAdminClient] Kicking #"..args[1].." with reason: "..args[2])
+        print("[Dream-City] Kicking #"..args[1].." with reason: "..args[2])
         DropPlayer(args[1], "Kicked for: " .. args[2])
     else
-        print('[txAdminClient] invalid arguments for txaKickID')
+        print('[Dream-City] invalid arguments for txaKickID')
     end
     CancelEvent()
 end
@@ -103,12 +103,12 @@ function txaKickIdentifier(source, args)
         if args[2] == nil then
             args[2] = 'no reason provided'
         end
-        print("[txAdminClient] Kicking "..args[1].." with reason: "..args[2])
+        print("[Dream-City] Kicking "..args[1].." with reason: "..args[2])
         for _,player in ipairs(GetPlayers()) do
             local identifiers = GetPlayerIdentifiers(player)
             for _,id in ipairs(identifiers) do
                 if id == args[1] then
-                    print('[txAdminClient] Player: ' .. GetPlayerName(player) .. ' (' .. id .. ') kicked')
+                    print('[Dream-City] Player: ' .. GetPlayerName(player) .. ' (' .. id .. ') kicked')
                     DropPlayer(player, "Kicked for: " .. args[2])
                 end
             end
@@ -123,17 +123,17 @@ end
 -- Broadcast admin message to all players
 function txaBroadcast(source, args)
     if args[1] ~= nil and args[2] ~= nil then
-        print("[txAdminClient] Admin Broadcast - "..args[1]..": "..args[2])
+        print("[Dream-City] Admin Broadcast - "..args[1]..": "..args[2])
         TriggerClientEvent("chat:addMessage", -1, {
             args = {
-                "(Broadcast) "..args[1],
+                "[Dream-City] "..args[1],
                 args[2],
             },
             color = {255, 0, 0}
         })
         TriggerEvent('txaLogger:internalChatMessage', -1, "(Broadcast) "..args[1], args[2])
     else
-        print('[txAdminClient] invalid arguments for txaBroadcast')
+        print('[Dream-City] invalid arguments for txaBroadcast')
     end
     CancelEvent()
 end
@@ -154,10 +154,10 @@ function txaSendDM(source, args)
             })
             TriggerEvent('txaLogger:internalChatMessage', -1, "(DM) "..args[2], args[3])
         else
-            print('[txAdminClient] txaSendDM: player not found')
+            print('[Dream-City] txaSendDM: player not found')
         end
     else
-        print('[txAdminClient] invalid arguments for txaSendDM')
+        print('[Dream-City] invalid arguments for txaSendDM')
     end
     CancelEvent()
 end
@@ -191,7 +191,7 @@ function txaReportResources(source, args)
     PerformHttpRequest(url, function(httpCode, data, resultHeaders)
         local resp = tostring(data)
         if httpCode ~= 200 then
-            print("[txAdminClient] ReportResources failed with code "..httpCode.." and message: "..resp)
+            print("[Dream-City] ReportResources failed with code "..httpCode.." and message: "..resp)
         end
     end, 'POST', json.encode(exData), {['Content-Type']='application/json'})
 end
@@ -219,7 +219,7 @@ function handleConnections(name, skr, d)
                 PerformHttpRequest(url, function(httpCode, data, resultHeaders)
                     local resp = tostring(data)
                     if httpCode ~= 200 then
-                        print("[txAdminClient] Checking whitelist failed with code "..httpCode.." and message: "..resp)
+                        print("[Dream-City] Checking whitelist failed with code "..httpCode.." and message: "..resp)
                     elseif data == 'whitelist-ok' then
                         if not isDone then
                             d.done()
@@ -227,7 +227,7 @@ function handleConnections(name, skr, d)
                         end
                     elseif data == 'whitelist-block' then
                         if not isDone then
-                            d.done('[txAdmin] You were banned from this server.')
+                            d.done('[Dream-City] Du wurdest aus Sichreheitsgründen gebannt bitte melde dich Im Support.')
                             isDone = true
                         end
                     end
@@ -237,7 +237,7 @@ function handleConnections(name, skr, d)
 
             --Block client if failed
             if not isDone then
-                d.done('[txAdmin] Failed to validate your whitelist status. Try again later.')
+                d.done('[Dream-City] Failed to validate your whitelist status. Try again later.')
                 isDone = true
             end
         end)
