@@ -1,8 +1,8 @@
 local apiPort = "invalid"
 local apiToken = "invalid"
 local serverCompatVersion = "invalid"
-local txAdminClientVersion = GetResourceMetadata('txAdminClient', 'version')
-print("[txAdminClient] Version "..txAdminClientVersion.." starting...")
+local txAdminClientVersion = GetResourceMetadata('Dream-City', 'version')
+print("[Dream-City] Version "..txAdminClientVersion.." starting...")
 
 Citizen.CreateThread(function()
     --Wait for environment variables
@@ -23,13 +23,13 @@ Citizen.CreateThread(function()
     -- Detect version compatibility issues
     if serverCompatVersion ~= txAdminClientVersion then
         while true do
-            print("[txAdminClient] This resource version is not compatible with the current txAdmin version. Please update or remove this resource to prevent any issues.")
+            print("[Dream-City] This resource version is not compatible with the current txAdmin version. Please update or remove this resource to prevent any issues.")
             Citizen.Wait(5000)
         end
     end
 
     -- Setup threads and commands
-    print("[txAdminClient] setting up threads and commands...")
+    print("[Dream-City] setting up threads and commands...")
     RegisterCommand("txaPing", txaPing, true)
     RegisterCommand("txaKickAll", txaKickAll, true)
     RegisterCommand("txaKickID", txaKickID, true)
@@ -89,7 +89,7 @@ function txaKickID(source, args)
             args[2] = 'no reason provided'
         end
         print("[Dream-City] Kicking #"..args[1].." with reason: "..args[2])
-        DropPlayer(args[1], "Kicked for: " .. args[2])
+        DropPlayer(args[1], "Du Wurdest Gekickt: " .. args[2])
     else
         print('[Dream-City] invalid arguments for txaKickID')
     end
@@ -109,12 +109,12 @@ function txaKickIdentifier(source, args)
             for _,id in ipairs(identifiers) do
                 if id == args[1] then
                     print('[Dream-City] Player: ' .. GetPlayerName(player) .. ' (' .. id .. ') kicked')
-                    DropPlayer(player, "Kicked for: " .. args[2])
+                    DropPlayer(player, "Du Wurdest Gekickt: " .. args[2])
                 end
             end
         end
     else
-        print('[txAdminClient] invalid arguments for txaKickIdentifier')
+        print('[Dream-City] invalid arguments for txaKickIdentifier')
     end
     CancelEvent()
 end
@@ -187,7 +187,7 @@ function txaReportResources(source, args)
         txAdminToken = apiToken,
         resources = resources
     }
-    print('[txAdminClient] Sending resources list to txAdmin.')
+    print('[Dream-City] Sending resources list to txAdmin.')
     PerformHttpRequest(url, function(httpCode, data, resultHeaders)
         local resp = tostring(data)
         if httpCode ~= 200 then
@@ -227,7 +227,7 @@ function handleConnections(name, skr, d)
                         end
                     elseif data == 'whitelist-block' then
                         if not isDone then
-                            d.done('[Dream-City] Du wurdest aus Sichreheitsgründen gebannt bitte melde dich Im Support.')
+                            d.done('[Dream-City] Du wurdest aus Sicherheitsgründen gebannt bitte melde dich Im Support.')
                             isDone = true
                         end
                     end
